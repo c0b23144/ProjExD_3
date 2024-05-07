@@ -133,6 +133,21 @@ class Beam:
             self.rct.move_ip(self.vx, self.vy)
             screen.blit(self.img, self.rct)
 
+class Score:
+    def __init__(self):
+        self.fonto = pg.font.SysFont("hgp創英角ポップ体", 30)
+        self.color = (0, 0, 255)
+        self.score = 0
+        self.img = self.fonto.render("スコア：", 0, self.color)
+        self.rct = self.img.get_rect()
+        self.rct.center = 100, HEIGHT-50
+
+    def update(self, screen: pg.Surface):
+        """
+        スコア表示のupdateメソッド
+        """
+        self.img = self.fonto.render("スコア：", self.score, self.color)
+        screen.blit(self.img, self.rct)
 
 def main():
     pg.display.set_caption("たたかえ！こうかとん")
@@ -144,12 +159,16 @@ def main():
     beam = None
     clock = pg.time.Clock()
     tmr = 0
+    score = Score()
+
     while True:
         for event in pg.event.get():
             if event.type == pg.QUIT:
                 return
+            
             if event.type == pg.KEYDOWN and event.key == pg.K_SPACE:
                 beam = Beam(bird)
+
         screen.blit(bg_img, [0, 0])
         
         for bomb in bombs:
@@ -159,18 +178,18 @@ def main():
                 fonto = pg.font.Font(None, 80)
                 txt = fonto.render("GameOver", True, (255, 0, 0))
                 screen.blit(txt, [WIDTH/2-150, HEIGHT/2])
+
                 pg.display.update()
                 time.sleep(5)
                 return
-        #if not (beam is None or bomb is None):
-        for i, bomb in enumerate(bombs):
-            if beam is not None:
-                if beam.rct.colliderect(bomb.rct): #ビームと爆弾が衝突したら
-                    beam = None
-                    bomb = None
-                    bird.change_img(6, screen)
-                    pg.display.update()
-        bombs = [bomb for bomb in bombs if bomb is not None]
+            
+        if not (beam is None or bomb is None):
+            if beam.rct.colliderect(bomb.rct): #ビームと爆弾が衝突したら
+                beam = None
+                bomb = None
+                bird.change_img(6, screen)
+                score.score += 1
+                pg.display.update()
 
 
         key_lst = pg.key.get_pressed()
@@ -180,6 +199,7 @@ def main():
             bomb.update(screen)
         if beam is not None:
             beam.update(screen)
+        score.update(screen)
         pg.display.update()
         tmr += 1
         clock.tick(50)
