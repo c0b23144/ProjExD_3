@@ -117,6 +117,9 @@ class Bomb:
 
 class Beam:
     def __init__(self, bird: Bird):
+        """
+        ビームのイニシャライザ
+        """
         self.img = pg.transform.rotozoom(pg.image.load("fig/beam.png"), 0, 2.0) #ビーム画像Surface
         self.rct: pg.Rrct = self.img.get_rect() #ビーム画像Rect
         self.rct.left = bird.rct.right #ビームの左座標にこうかとんの右座標を設定
