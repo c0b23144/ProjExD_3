@@ -160,7 +160,7 @@ def main():
             if beam.rct.colliderect(bomb.rct): #ビームと爆弾が衝突したら
                 beam = None
                 bomb = None
-                bird.change_img(6, screen)
+                bird.change_img(6, screen) #喜ぶよこうかとん
                 pg.display.update()
 
 
