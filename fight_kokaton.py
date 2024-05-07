@@ -166,8 +166,10 @@ def main():
         for event in pg.event.get():
             if event.type == pg.QUIT:
                 return
+            
             if event.type == pg.KEYDOWN and event.key == pg.K_SPACE:
                 beam = Beam(bird)
+
         screen.blit(bg_img, [0, 0])
 
         if bomb is not None:
@@ -177,9 +179,11 @@ def main():
                 fonto = pg.font.Font(None, 80)
                 txt = fonto.render("GameOver", True, (255, 0, 0))
                 screen.blit(txt, [WIDTH/2-150, HEIGHT/2])
+                
                 pg.display.update()
                 time.sleep(5)
                 return
+            
         if not (beam is None or bomb is None):
             if beam.rct.colliderect(bomb.rct): #ビームと爆弾が衝突したら
                 beam = None
