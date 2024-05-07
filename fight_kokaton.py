@@ -134,9 +134,6 @@ class Beam:
 
 class Score:
     def __init__(self):
-        """
-        スコア表示のイニシャライザ
-        """
         self.fonto = pg.font.SysFont("hgp創英角ポップ体", 30)
         self.color = (0, 0, 255)
         self.score = 0
@@ -179,7 +176,7 @@ def main():
                 fonto = pg.font.Font(None, 80)
                 txt = fonto.render("GameOver", True, (255, 0, 0))
                 screen.blit(txt, [WIDTH/2-150, HEIGHT/2])
-                
+
                 pg.display.update()
                 time.sleep(5)
                 return
@@ -193,12 +190,12 @@ def main():
                 pg.display.update()
 
 
-        score.update(screen)
         key_lst = pg.key.get_pressed()
         bird.update(key_lst, screen)
         bomb.update(screen)
         if beam is not None:
             beam.update(screen)
+        score.update(screen)
         pg.display.update()
         tmr += 1
         clock.tick(50)
