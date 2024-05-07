@@ -148,13 +148,16 @@ def main():
             if event.type == pg.KEYDOWN and event.key == pg.K_SPACE:
                 beam = Beam(bird)
         screen.blit(bg_img, [0, 0])
-        
+
         if bomb is not None:
             if bird.rct.colliderect(bomb.rct):
                 # ゲームオーバー時に，こうかとん画像を切り替え，1秒間表示させる
-                bird.change_img(6, screen)
+                bird.change_img(8, screen)
+                fonto = pg.font.Font(None, 80)
+                txt = fonto.render("GameOver", True, (255, 0, 0))
+                screen.blit(txt, [WIDTH/2-150, HEIGHT/2])
                 pg.display.update()
-                time.sleep(1)
+                time.sleep(5)
                 return
         if not (beam is None or bomb is None):
             if beam.rct.colliderect(bomb.rct): #ビームと爆弾が衝突したら
