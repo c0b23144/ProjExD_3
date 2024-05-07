@@ -134,6 +134,9 @@ class Beam:
 
 class Score:
     def __init__(self):
+        """
+        スコア表示のイニシャライザ
+        """
         self.fonto = pg.font.SysFont("hgp創英角ポップ体", 30)
         self.color = (0, 0, 255)
         self.score = 0
@@ -142,6 +145,9 @@ class Score:
         self.rct.center = 100, HEIGHT-50
 
     def update(self, screen: pg.Surface):
+        """
+        スコア表示のupdateメソッド
+        """
         self.img = self.fonto.render("スコア：", self.score, self.color)
         screen.blit(self.img, self.rct)
 
@@ -157,7 +163,6 @@ def main():
     score = Score()
 
     while True:
-        score.update()
         for event in pg.event.get():
             if event.type == pg.QUIT:
                 return
@@ -184,6 +189,7 @@ def main():
                 pg.display.update()
 
 
+        score.update(screen)
         key_lst = pg.key.get_pressed()
         bird.update(key_lst, screen)
         bomb.update(screen)
