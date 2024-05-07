@@ -139,7 +139,7 @@ def main():
     bg_img = pg.image.load("fig/pg_bg.jpg")
     bird = Bird((900, 400))
     #bomb = Bomb((255, 0, 0), 10)
-    bombs = [Bomb((255, 0, 0), 10) for _ in range(NUM_OF_BOMBS)]
+    bombs = [Bomb((255, 0, 0), 10) for _ in range(NUM_OF_BOMBS)] #爆弾
     beam = None
     clock = pg.time.Clock()
     tmr = 0
